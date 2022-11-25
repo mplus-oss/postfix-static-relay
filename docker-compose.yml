@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  postfix:
+    build: .
+    ports:
+      - "25:25"
+    environment:
+    # Only supports STARTTLS for now
+      - POSTFIX_RELAY_HOST=[smtp.sendgrid.net]:587
+      - POSTFIX_RELAY_USER=
+      - POSTFIX_RELAY_PASSWORD=
+      - POSTFIX_FROM_NAME=
+      - POSTFIX_FROM_ADDRESS=

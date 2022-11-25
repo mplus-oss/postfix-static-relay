@@ -1,0 +1,31 @@
+# See /usr/share/postfix/main.cf.dist for a commented, more complete version
+smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+biff = no
+append_dot_mydomain = no
+readme_directory = no
+compatibility_level = 2
+smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_tls_security_level=may
+smtp_tls_CApath=/etc/ssl/certs
+smtp_tls_security_level=may
+smtp_tls_session_cache_database = btree:/var/lib/postfix/smtp_scache
+smtpd_relay_restrictions = permit_mynetworks
+myhostname = mail.example.com
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+myorigin = /etc/mailname
+mydestination = mail.example.com, localhost.localdomain, localhost
+mynetworks_style = subnet
+mailbox_size_limit = 0
+inet_interfaces = all
+inet_protocols = ipv4
+
+relayhost = ${POSTFIX_RELAY_HOST}
+smtp_use_tls = yes
+smtp_sasl_auth_enable = yes
+smtp_sasl_security_options = noanonymous
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+smtp_header_checks = pcre:/etc/postfix/smtp_header_checks
+maillog_file = /dev/stdout
