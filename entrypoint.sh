@@ -31,5 +31,7 @@ cp /etc/resolv.conf /var/spool/postfix/etc/resolv.conf
 echo "${POSTFIX_RELAY_HOST} ${POSTFIX_RELAY_USER}:${POSTFIX_RELAY_PASSWORD}" > /etc/postfix/sasl_passwd
 chmod 600 /etc/postfix/sasl_passwd
 postmap /etc/postfix/sasl_passwd
+echo "/^From:.*/ REPLACE From: ${POSTFIX_FROM_NAME} <${POSTFIX_FROM_ADDRESS}>" > /etc/postfix/smtp_header_checks
+postmap /etc/postfix/smtp_header_checks
 
 exec /usr/sbin/postfix -c /etc/postfix start-fg
